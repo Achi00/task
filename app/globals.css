@@ -2,26 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.no-focus {
+  @apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+/* .form {
+  background-color: beige;
+  background-image: url("/assets/images/bg.jpg");
+  background-size: cover;
+} */
+
+.file-input-wrapper {
+  position: relative;
+}
+
+.actual-input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.overlay-label {
+  display: block;
+  padding: 10px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.7); /* Light grey border */
+  border-top: 4px solid #3498db; /* Blue border */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.background-options img {
+  width: 45vmin; /* Or any size you prefer */
+  height: auto;
+  margin: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+  border-radius: 35px;
+}
+
+.background-options img:hover {
+  border: 2px solid blue; /* Highlight on hover */
+}
+
+.image-container {
+  position: relative;
+  width: 300px; /* Match the width of your foreground image */
+  height: 300px; /* Match the height of your foreground image */
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* Cover the whole area */
+  border-radius: 2xl; /* Match your foreground image */
+}
+
+.foreground-image {
+  position: relative;
+  z-index: 1; /* Ensures the foreground image is on top */
 }
