@@ -146,7 +146,9 @@ const page = () => {
         imageUrl: imageUrl,
       });
 
-      toast.success("Image uploaded successfully");
+      toast.success(
+        "Image uploaded successfully, you can see it on your profile page"
+      );
       setLoading(false);
       console.log(imageUrl);
     } catch (error: any) {
@@ -190,6 +192,9 @@ const page = () => {
       const imageUrl = `data:image/jpeg;base64,${base64Image}`;
       setRemovedBgImage(imageUrl);
       setRemoveLoading(false);
+      toast.success(
+        "Image background removed successfully, now you can upload on server"
+      );
     } catch (error: any) {
       toast.error("There was problem while processing image");
       console.error("Error during fetch operation:", error.message);
@@ -242,11 +247,11 @@ const page = () => {
           >
             Upload from your device
           </p>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap justify-center">
             {/* preview image */}
             {imagePreview && (
               <img
-                className="rounded-2xl"
+                className="rounded-2xl object-contain"
                 src={imagePreview}
                 width={300}
                 height={300}
@@ -266,7 +271,7 @@ const page = () => {
 
               {removedBgImage && (
                 <img
-                  className="foreground-image rounded-2xl"
+                  className="foreground-image rounded-2xl object-contain"
                   width={300}
                   height={300}
                   src={removedBgImage}
@@ -275,12 +280,6 @@ const page = () => {
               )}
             </div>
           </div>
-          {mergedImageSrc && (
-            <Button type="submit" className="flex gap-2 p-6 text-2xl">
-              <FaImages size={25} />
-              {loading ? <h1>Uploading...</h1> : <h1>Upload</h1>}
-            </Button>
-          )}
           {imagePreview && (
             <Button
               className="flex gap-2 p-6 text-2xl"
@@ -288,6 +287,12 @@ const page = () => {
             >
               <FaImages size={25} />
               {removeLoading ? <h1>Processing...</h1> : <h1>Remove Bg</h1>}
+            </Button>
+          )}
+          {mergedImageSrc && (
+            <Button type="submit" className="flex gap-2 p-6 text-2xl">
+              <FaImages size={25} />
+              {loading ? <h1>Uploading...</h1> : <h1>Upload</h1>}
             </Button>
           )}
         </form>
@@ -301,7 +306,7 @@ const page = () => {
             ].map((bgUrl) => (
               <div key={bgUrl} className="relative m-2">
                 <img
-                  className={`w-25 cursor-pointer ${
+                  className={`w-25 object-contain cursor-pointer ${
                     selectedBackgroundUrl === bgUrl ? "opacity-50" : ""
                   }`}
                   src={bgUrl}
@@ -329,10 +334,16 @@ const page = () => {
         )}
         {/* merged image */}
         {removedBgImage && (
-          <div className="p-4 flex flex-col justify-center items-center">
+          <div className="p-4 flex flex-col gap-2 justify-center items-center">
             <Button onClick={handleMergeImagesClick}>Merge Images</Button>
             {mergedImageSrc && (
-              <img width="350px" src={mergedImageSrc} alt="Merged" />
+              <img
+                width="350px"
+                height="300px"
+                src={mergedImageSrc}
+                alt="Merged"
+                className="object-contain"
+              />
             )}
           </div>
         )}

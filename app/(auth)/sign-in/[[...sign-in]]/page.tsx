@@ -10,12 +10,15 @@ export default function Page() {
         alt="auth image"
         className="object-cover absolute" // Adjust according to your needs
       />
-      <div className="flex p-4 flex-wrap relative z-10 gap-5 items-center justify-center">
+      <div className="flex p-[3vmin] flex-wrap relative z-10 gap-5 items-center justify-center">
         <div className="flex flex-col">
           <h1 className="font-extrabold xl:text-4xl lg:text-3xl xs:text-2xl">
             Sign in to start using app
           </h1>
           <h2>Your data is secured</h2>
+          <h3 className="text-gray-500">
+            By Loging in with Google you agree terms and conditions
+          </h3>
         </div>
         <div className="text-2xl">
           <SignIn />

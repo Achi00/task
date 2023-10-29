@@ -32,3 +32,18 @@ export async function addImageToUser({ userId, imageUrl }: Params) {
     throw new Error(`Failed to add image to user: ${error.message}`);
   }
 }
+
+export async function fetchUserImages(userId: string) {
+  try {
+    await connectToDB();
+    const user = await User.findOne({ id: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user.images; // This will return an array of image URLs
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user images: ${error.message}`);
+  }
+}

@@ -34,7 +34,7 @@ export default async function Home() {
             <div className="flex w-full gap-8 border-t mt-6 items-center p-2">
               <h2 className="text-lg">Sign Up and Start Using App Now</h2>
               <Link href="/sign-up">
-                <Button className="flex gap-2 p-6 text-2xl">
+                <Button className="flex gap-2 p-6 xl:text-2xl lg:text-2xl md:text-xl sm:text-lg xs:text-md">
                   <BiLogIn size={25} />
                   Sing Up
                 </Button>

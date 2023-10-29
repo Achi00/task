@@ -3,6 +3,7 @@ import {
   SignedIn,
   SignOutButton,
   currentUser,
+  UserButton,
 } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +24,7 @@ const Navbar = async () => {
           <div className="text-xl font-semibold border rounded-md px-2 py-1">
             <Link href="/profile">Profile</Link>
           </div>
+          <UserButton afterSignOutUrl="/" />
           <SignOutButton>
             <div className="flex cursor-pointer">
               <Image

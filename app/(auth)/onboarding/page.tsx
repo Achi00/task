@@ -7,10 +7,10 @@ import { useRouter } from "next/router";
 
 async function Page() {
   const user = await currentUser();
-  if (!user) return null; // to avoid typescript warnings
+  if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
-  if (userInfo?.onboarded) redirect("/");
+  // if (userInfo) redirect("/");
 
   const userData = {
     id: user.id,
@@ -21,9 +21,9 @@ async function Page() {
   };
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col justify-start px-10 py-20">
-      <h1 className="head-text">Onboarding</h1>
-      <p className="mt-3 text-base-regular text-dark-2">
+    <main className="flex w-full bg-black items-center flex-col justify-center h-screen ">
+      <h1 className="text-2xl text-white">Onboarding</h1>
+      <p className="mt-3 text-base-regular text-gray-400">
         Almost there, finish your profile to use app
       </p>
 

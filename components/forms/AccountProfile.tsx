@@ -20,6 +20,7 @@ import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/uploadthing";
 import { updateUserOrCreate } from "@/lib/actions/user.actions";
 import { usePathname, useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 interface Props {
   user: {
@@ -37,6 +38,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const { startUpload } = useUploadThing("media");
   const router = useRouter();
   const pathname = usePathname();
+
+  const { user: userInfo } = useUser();
+  const email = userInfo?.emailAddresses[0]?.emailAddress || "";
 
   const form = useForm({
     resolver: zodResolver(userValidation),
@@ -88,6 +92,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       username: values.username,
       name: values.name,
       image: values.profile_photo,
+      email: email,
       path: pathname,
     });
 
@@ -149,11 +154,11 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="name"
           render={({ field }) => (
             <FormItem className="flex flex-col w-full gap-4">
-              <FormLabel className="text-bold text-gray-500">Name</FormLabel>
+              <FormLabel className="text-bold text-gray-200">Name</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  className="border border-gray-400 bg-white-3 font-thin no-focus"
+                  className="border border-gray-400 bg-gray-300 text-black font-semibold no-focus"
                   {...field}
                 />
               </FormControl>
@@ -166,13 +171,13 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="username"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-4">
-              <FormLabel className="text-bold text-gray-500">
+              <FormLabel className="text-bold text-gray-200">
                 UserName
               </FormLabel>
               <FormControl className="flex-1 font-semibold text-gray-700">
                 <Input
                   type="text"
-                  className="border border-gray-400 bg-white-3 font-thin no-focus"
+                  className="border border-gray-400 bg-gray-300 text-black font-semibold no-focus"
                   {...field}
                 />
               </FormControl>

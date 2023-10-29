@@ -10,6 +10,7 @@ interface Params {
   username: string;
   name: string;
   image: string;
+  email: string;
   path: string;
 }
 
@@ -28,6 +29,7 @@ export async function updateUserOrCreate({
   username,
   name,
   image,
+  email,
   path,
 }: Params): Promise<void> {
   try {
@@ -36,7 +38,7 @@ export async function updateUserOrCreate({
     // Attempt to find and update, or create a new user
     const updatedUser = await User.findOneAndUpdate(
       { id: userId },
-      { username: username.toLowerCase(), name, image },
+      { username: username.toLowerCase(), name, image, email },
       { upsert: true, new: true, runValidators: true }
     );
 
