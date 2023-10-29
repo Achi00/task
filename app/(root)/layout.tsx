@@ -21,12 +21,9 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.className} bg-black text-white`}>
           <Navbar />
-          {/* <LeftSidebar /> */}
           <section className="pt-[70px]">
             <div className="w-full">{children}</div>
           </section>
-          {/* @ts-ignore */}
-          {/* <RightSidebar /> */}
         </body>
       </html>
     </ClerkProvider>

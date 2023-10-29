@@ -1,15 +1,16 @@
 export async function mergeImages(urls: string[]): Promise<HTMLImageElement> {
-  // Create a new canvas element.
   const canvas = document.createElement("canvas");
 
-  // Load images from URLs.
   const loadImages = async () => {
     return Promise.all(
       urls.map((url) => {
         return new Promise<HTMLImageElement>((resolve, reject) => {
           const img = new Image();
           img.onload = () => resolve(img);
-          img.onerror = reject;
+          img.onerror = (error) => {
+            console.error("Error loading image:", error);
+            reject(error);
+          };
           img.src = url;
         });
       })
@@ -18,33 +19,36 @@ export async function mergeImages(urls: string[]): Promise<HTMLImageElement> {
 
   const images = await loadImages();
 
-  // Set canvas size based on the largest width and height of the images.
-  canvas.width = Math.max(...images.map((img) => img.width));
-  canvas.height = Math.max(...images.map((img) => img.height));
+  const backgroundImage = images[0];
+  const pngImage = images[1];
+
+  // Decide canvas size based on which image is larger.
+  canvas.width = Math.max(backgroundImage.width, pngImage.width);
+  canvas.height = Math.max(backgroundImage.height, pngImage.height);
 
   const context = canvas.getContext("2d");
   if (context) {
-    // Draw each image onto the canvas.
-    images.forEach((image) => {
-      const aspectRatio = image.width / image.height;
-      let targetWidth, targetHeight;
+    const bgXOffset = (canvas.width - backgroundImage.width) / 2;
+    const bgYOffset = (canvas.height - backgroundImage.height) / 2;
+    context.drawImage(
+      backgroundImage,
+      bgXOffset,
+      bgYOffset,
+      backgroundImage.width,
+      backgroundImage.height
+    );
 
-      if (canvas.width / canvas.height > aspectRatio) {
-        targetHeight = canvas.height;
-        targetWidth = targetHeight * aspectRatio;
-      } else {
-        targetWidth = canvas.width;
-        targetHeight = targetWidth / aspectRatio;
-      }
-
-      const offsetX = (canvas.width - targetWidth) / 2;
-      const offsetY = (canvas.height - targetHeight) / 2;
-
-      context.drawImage(image, offsetX, offsetY, targetWidth, targetHeight);
-    });
+    const pngXOffset = (canvas.width - pngImage.width) / 2;
+    const pngYOffset = (canvas.height - pngImage.height) / 2;
+    context.drawImage(
+      pngImage,
+      pngXOffset,
+      pngYOffset,
+      pngImage.width,
+      pngImage.height
+    );
   }
 
-  // Convert canvas to image.
   const mergedImage = new Image();
   mergedImage.src = canvas.toDataURL();
 

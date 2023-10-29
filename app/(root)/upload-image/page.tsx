@@ -272,8 +272,8 @@ const page = () => {
               {removedBgImage && (
                 <img
                   className="foreground-image rounded-2xl object-contain"
-                  width={300}
-                  height={300}
+                  width={200}
+                  // height={300}
                   src={removedBgImage}
                   alt="Background Removed"
                 />
@@ -281,27 +281,29 @@ const page = () => {
             </div>
           </div>
           {/* remove background */}
-          {imagePreview && (
-            <Button
-              className="flex gap-2 p-6 text-2xl"
-              onClick={handleRemoveBgClick}
-            >
-              <FaImages size={25} />
-              {removeLoading ? <h1>Processing...</h1> : <h1>Remove Bg</h1>}
-            </Button>
-          )}
-          {mergedImageSrc && (
-            <Button type="submit" className="flex gap-2 p-6 text-2xl">
-              <FaImages size={25} />
-              {loading ? <h1>Uploading...</h1> : <h1>Upload</h1>}
-            </Button>
-          )}
+          <div className="flex flex-col gap-3 py-3 xl:pt-3 lg:pt-2 md:pt-2 sm:pt-3 xs:pt-3">
+            {imagePreview && (
+              <Button
+                className="flex gap-2 p-6 text-2xl"
+                onClick={handleRemoveBgClick}
+              >
+                <FaImages size={25} />
+                {removeLoading ? <h1>Processing...</h1> : <h1>Remove Bg</h1>}
+              </Button>
+            )}
+            {mergedImageSrc && (
+              <Button type="submit" className="flex gap-2 p-6 text-2xl">
+                <FaImages size={25} />
+                {loading ? <h1>Uploading...</h1> : <h1>Upload</h1>}
+              </Button>
+            )}
+          </div>
         </form>
         {/* background option */}
         {removedBgImage && (
           <div className="background-options flex flex-wrap justify-center items-center">
             {[
-              "/assets/bg/bg1.jpg",
+              // "/assets/bg/bg1.jpg",
               "/assets/bg/bg2.jpg",
               "/assets/bg/bg3.jpg",
             ].map((bgUrl) => (
