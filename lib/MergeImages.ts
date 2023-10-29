@@ -18,19 +18,29 @@ export async function mergeImages(urls: string[]): Promise<HTMLImageElement> {
 
   const images = await loadImages();
 
-  // Assuming images are of the same size for simplicity.
-  // You might want to handle different sizes in a more complex way.
-  const width = images[0].width;
-  const height = images[0].height;
-
-  canvas.width = width;
-  canvas.height = height;
+  // Set canvas size based on the largest width and height of the images.
+  canvas.width = Math.max(...images.map((img) => img.width));
+  canvas.height = Math.max(...images.map((img) => img.height));
 
   const context = canvas.getContext("2d");
   if (context) {
     // Draw each image onto the canvas.
     images.forEach((image) => {
-      context.drawImage(image, 0, 0, width, height);
+      const aspectRatio = image.width / image.height;
+      let targetWidth, targetHeight;
+
+      if (canvas.width / canvas.height > aspectRatio) {
+        targetHeight = canvas.height;
+        targetWidth = targetHeight * aspectRatio;
+      } else {
+        targetWidth = canvas.width;
+        targetHeight = targetWidth / aspectRatio;
+      }
+
+      const offsetX = (canvas.width - targetWidth) / 2;
+      const offsetY = (canvas.height - targetHeight) / 2;
+
+      context.drawImage(image, offsetX, offsetY, targetWidth, targetHeight);
     });
   }
 

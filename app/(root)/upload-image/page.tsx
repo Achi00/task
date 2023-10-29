@@ -280,6 +280,7 @@ const page = () => {
               )}
             </div>
           </div>
+          {/* remove background */}
           {imagePreview && (
             <Button
               className="flex gap-2 p-6 text-2xl"

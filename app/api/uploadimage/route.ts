@@ -28,26 +28,4 @@ export async function POST(req: NextRequest) {
   console.log(body);
   // const userId = req.body.userId;
   return new Response("ok");
-
-  // try {
-  //   const response = await cloudinary.uploader.upload(file);
-  //   const imageUrl = response.secure_url;
-
-  //   if (userId) {
-  //     const user = await User.findOneAndUpdate(
-  //       { id: userId },
-  //       { image: imageUrl },
-  //       { new: true }
-  //     );
-  //     if (!user) {
-  //       return res.status(404).json({ error: "User not found" });
-  //     }
-  //     res.status(200).json({ user });
-  //   } else {
-  //     console.log("User not found/no user id");
-  //   }
-  // } catch (error) {
-  //   console.error("Upload failed:", error);
-  //   res.status(500).json({ error: "Upload failed" });
-  // }
 }
